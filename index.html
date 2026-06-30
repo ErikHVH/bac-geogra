@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoQuiz România — Pregătire BAC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Main Menu -->
+        <div id="menu-screen" class="screen active">
+            <div class="menu-container">
+                <div class="menu-header">
+                    <h1>GeoQuiz</h1>
+                    <p class="subtitle">Pregătire BAC — Geografie</p>
+                </div>
+                <div class="quiz-categories">
+                    <div class="category-card" data-quiz="resedinte">
+                        <span class="card-icon">🏛️</span>
+                        <h3>Reședințe de Județ</h3>
+                        <p>Identifică reședințele celor 41 de județe</p>
+                    </div>
+                    <div class="category-card" data-quiz="rauri">
+                        <span class="card-icon">🌊</span>
+                        <h3>Râurile României</h3>
+                        <p>Identifică principalele râuri pe hartă</p>
+                    </div>
+                    <div class="category-card" data-quiz="tari-knowledge">
+                        <span class="card-icon">🌍</span>
+                        <h3>Cunoștințe Țări</h3>
+                        <p>Vecini, relief, ape, orașe — format BAC</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <button id="back-btn" class="btn-back">← Înapoi</button>
+                <span id="quiz-title" class="quiz-info"></span>
+                <div class="quiz-stats">
+                    <span id="score-display">Scor: 0/0</span>
+                    <span id="timer-display">⏱ 00:00</span>
+                </div>
+            </div>
+            <div class="quiz-body">
+                <div class="question-panel">
+                    <p id="question-text">Încarcă...</p>
+                    <div id="remaining-count" class="remaining">Rămase: 0</div>
+                    <div id="feedback-msg" class="feedback"></div>
+                </div>
+                <div class="map-container" id="map-container"></div>
+            </div>
+            <div class="quiz-progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-container">
+                <h2>Felicitări!</h2>
+                <div class="results-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Scor final</span>
+                        <span id="final-score" class="stat-value">0/0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Acuratețe</span>
+                        <span id="accuracy" class="stat-value">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Timp</span>
+                        <span id="final-time" class="stat-value">00:00</span>
+                    </div>
+                </div>
+                <div id="results-rank" class="results-rank"></div>
+                <div class="results-actions">
+                    <button id="retry-btn" class="btn-primary">Încearcă din nou</button>
+                    <button id="menu-btn" class="btn-secondary">Meniu principal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Country Knowledge Screen -->
+        <div id="knowledge-screen" class="screen">
+            <div class="knowledge-header">
+                <button id="knowledge-back-btn" class="btn-back">← Înapoi</button>
+                <h2 id="knowledge-title">Cunoștințe Țări</h2>
+                <div class="knowledge-header-right">
+                    <button id="knowledge-settings-btn" class="btn-back" title="Setări" style="display:none;">⚙️</button>
+                    <button id="knowledge-next-btn" class="btn-primary btn-next" style="display:none;">Următoarea →</button>
+                </div>
+            </div>
+            <div class="knowledge-body">
+                <!-- Filter selection -->
+                <div class="knowledge-filters" id="knowledge-filters">
+                    <div class="filter-panel">
+                        <h3>Ce vrei să exersezi?</h3>
+                        <label class="filter-option">
+                            <input type="checkbox" id="filter-vecini" checked>
+                            <span>Vecinii României</span>
+                            <small>Moldova, Ucraina, Ungaria, Serbia, Bulgaria</small>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" id="filter-importante" checked>
+                            <span>Țări importante</span>
+                            <small>Franța, Germania, Italia, Spania, Rusia, etc.</small>
+                        </label>
+                        <button id="start-knowledge-btn" class="btn-primary">Începe →</button>
+                    </div>
+                </div>
+
+                <!-- Two-panel layout: form (center initially, then left) + answers (right) -->
+                <div class="knowledge-panels" id="knowledge-panels">
+                    <div class="knowledge-form" id="knowledge-form" style="display:none;">
+                        <h3 id="country-name-display"></h3>
+                        <p class="form-instructions">Completează câmpurile de mai jos:</p>
+                        
+                        <div class="form-group">
+                            <label>1. Trei state vecine:</label>
+                            <input type="text" id="input-vecin1" placeholder="Stat vecin 1" autocomplete="off">
+                            <input type="text" id="input-vecin2" placeholder="Stat vecin 2" autocomplete="off">
+                            <input type="text" id="input-vecin3" placeholder="Stat vecin 3" autocomplete="off">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>2. Două unități de relief:</label>
+                            <input type="text" id="input-relief1" placeholder="Unitate de relief 1" autocomplete="off">
+                            <input type="text" id="input-relief2" placeholder="Unitate de relief 2" autocomplete="off">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>3. Două ape curgătoare:</label>
+                            <input type="text" id="input-apa1" placeholder="Apă curgătoare 1" autocomplete="off">
+                            <input type="text" id="input-apa2" placeholder="Apă curgătoare 2" autocomplete="off">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>4. Trei orașe:</label>
+                            <input type="text" id="input-oras1" placeholder="Oraș 1" autocomplete="off">
+                            <input type="text" id="input-oras2" placeholder="Oraș 2" autocomplete="off">
+                            <input type="text" id="input-oras3" placeholder="Oraș 3" autocomplete="off">
+                        </div>
+                        
+                        <button id="verify-btn" class="btn-primary btn-verify">Verifică ✓</button>
+                    </div>
+
+                    <div class="knowledge-answers" id="knowledge-answers">
+                        <h3>Răspunsuri corecte:</h3>
+                        <div class="answer-section">
+                            <h4>State vecine:</h4>
+                            <p id="correct-vecini"></p>
+                        </div>
+                        <div class="answer-section">
+                            <h4>Unități de relief:</h4>
+                            <p id="correct-relief"></p>
+                        </div>
+                        <div class="answer-section">
+                            <h4>Ape curgătoare:</h4>
+                            <p id="correct-ape"></p>
+                        </div>
+                        <div class="answer-section">
+                            <h4>Orașe:</h4>
+                            <p id="correct-orase"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data/romania-counties.js"></script>
+    <script src="js/data/romania-rivers.js"></script>
+    <script src="js/data/countries-knowledge.js"></script>
+    <script src="js/data/quiz-data.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
