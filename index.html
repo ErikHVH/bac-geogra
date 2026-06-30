@@ -92,82 +92,98 @@
                 <button id="knowledge-back-btn" class="btn-back">← Înapoi</button>
                 <h2 id="knowledge-title">Cunoștințe Țări</h2>
                 <div class="knowledge-header-right">
-                    <button id="knowledge-settings-btn" class="btn-back" title="Setări" style="display:none;">⚙️</button>
-                    <button id="knowledge-next-btn" class="btn-primary btn-next" style="display:none;">Următoarea →</button>
+                    <button id="knowledge-settings-btn" class="btn-icon" title="Schimbă categorii" style="display:none;">⚙️</button>
+                    <button id="knowledge-next-btn" class="btn-next" style="display:none;">Următoarea →</button>
                 </div>
             </div>
-            <div class="knowledge-body">
+
+            <div class="knowledge-content">
                 <!-- Filter selection -->
                 <div class="knowledge-filters" id="knowledge-filters">
-                    <div class="filter-panel">
-                        <h3>Ce vrei să exersezi?</h3>
+                    <div class="filter-card">
+                        <div class="filter-card-header">
+                            <span class="filter-emoji">📚</span>
+                            <h3>Alege categoriile</h3>
+                        </div>
                         <label class="filter-option">
                             <input type="checkbox" id="filter-vecini" checked>
-                            <span>Vecinii României</span>
-                            <small>Moldova, Ucraina, Ungaria, Serbia, Bulgaria</small>
+                            <div class="filter-text">
+                                <span>Vecinii României</span>
+                                <small>Moldova, Ucraina, Ungaria, Serbia, Bulgaria</small>
+                            </div>
                         </label>
                         <label class="filter-option">
                             <input type="checkbox" id="filter-importante" checked>
-                            <span>Țări importante</span>
-                            <small>Franța, Germania, Italia, Spania, Rusia, etc.</small>
+                            <div class="filter-text">
+                                <span>Țări importante</span>
+                                <small>Franța, Germania, Italia, Spania, Rusia, etc.</small>
+                            </div>
                         </label>
-                        <button id="start-knowledge-btn" class="btn-primary">Începe →</button>
+                        <button id="start-knowledge-btn" class="btn-primary btn-large">Începe</button>
                     </div>
                 </div>
 
-                <!-- Two-panel layout: form (center initially, then left) + answers (right) -->
-                <div class="knowledge-panels" id="knowledge-panels">
-                    <div class="knowledge-form" id="knowledge-form" style="display:none;">
+                <!-- Quiz area -->
+                <div class="knowledge-quiz" id="knowledge-quiz" style="display:none;">
+                    <!-- Country name banner -->
+                    <div class="country-banner">
+                        <span class="country-flag">🌍</span>
                         <h3 id="country-name-display"></h3>
-                        <p class="form-instructions">Completează câmpurile de mai jos:</p>
-                        
-                        <div class="form-group">
-                            <label>1. Trei state vecine:</label>
-                            <input type="text" id="input-vecin1" placeholder="Stat vecin 1" autocomplete="off">
-                            <input type="text" id="input-vecin2" placeholder="Stat vecin 2" autocomplete="off">
-                            <input type="text" id="input-vecin3" placeholder="Stat vecin 3" autocomplete="off">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>2. Două unități de relief:</label>
-                            <input type="text" id="input-relief1" placeholder="Unitate de relief 1" autocomplete="off">
-                            <input type="text" id="input-relief2" placeholder="Unitate de relief 2" autocomplete="off">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>3. Două ape curgătoare:</label>
-                            <input type="text" id="input-apa1" placeholder="Apă curgătoare 1" autocomplete="off">
-                            <input type="text" id="input-apa2" placeholder="Apă curgătoare 2" autocomplete="off">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>4. Trei orașe:</label>
-                            <input type="text" id="input-oras1" placeholder="Oraș 1" autocomplete="off">
-                            <input type="text" id="input-oras2" placeholder="Oraș 2" autocomplete="off">
-                            <input type="text" id="input-oras3" placeholder="Oraș 3" autocomplete="off">
-                        </div>
-                        
-                        <button id="verify-btn" class="btn-primary btn-verify">Verifică ✓</button>
                     </div>
 
-                    <div class="knowledge-answers" id="knowledge-answers">
-                        <h3>Răspunsuri corecte:</h3>
-                        <div class="answer-section">
-                            <h4>State vecine:</h4>
-                            <p id="correct-vecini"></p>
+                    <!-- Form card -->
+                    <div class="knowledge-form-card" id="knowledge-form">
+                        <div class="form-section">
+                            <div class="form-section-header">
+                                <span class="section-number">1</span>
+                                <label>Trei state vecine</label>
+                            </div>
+                            <div class="form-inputs">
+                                <input type="text" id="input-vecin1" placeholder="Stat vecin" autocomplete="off">
+                                <input type="text" id="input-vecin2" placeholder="Stat vecin" autocomplete="off">
+                                <input type="text" id="input-vecin3" placeholder="Stat vecin" autocomplete="off">
+                            </div>
+                            <div class="correct-inline" id="correct-vecini"></div>
                         </div>
-                        <div class="answer-section">
-                            <h4>Unități de relief:</h4>
-                            <p id="correct-relief"></p>
+                        
+                        <div class="form-section">
+                            <div class="form-section-header">
+                                <span class="section-number">2</span>
+                                <label>Două unități de relief</label>
+                            </div>
+                            <div class="form-inputs">
+                                <input type="text" id="input-relief1" placeholder="Unitate de relief" autocomplete="off">
+                                <input type="text" id="input-relief2" placeholder="Unitate de relief" autocomplete="off">
+                            </div>
+                            <div class="correct-inline" id="correct-relief"></div>
                         </div>
-                        <div class="answer-section">
-                            <h4>Ape curgătoare:</h4>
-                            <p id="correct-ape"></p>
+                        
+                        <div class="form-section">
+                            <div class="form-section-header">
+                                <span class="section-number">3</span>
+                                <label>Două ape curgătoare</label>
+                            </div>
+                            <div class="form-inputs">
+                                <input type="text" id="input-apa1" placeholder="Apă curgătoare" autocomplete="off">
+                                <input type="text" id="input-apa2" placeholder="Apă curgătoare" autocomplete="off">
+                            </div>
+                            <div class="correct-inline" id="correct-ape"></div>
                         </div>
-                        <div class="answer-section">
-                            <h4>Orașe:</h4>
-                            <p id="correct-orase"></p>
+                        
+                        <div class="form-section">
+                            <div class="form-section-header">
+                                <span class="section-number">4</span>
+                                <label>Trei orașe</label>
+                            </div>
+                            <div class="form-inputs">
+                                <input type="text" id="input-oras1" placeholder="Oraș" autocomplete="off">
+                                <input type="text" id="input-oras2" placeholder="Oraș" autocomplete="off">
+                                <input type="text" id="input-oras3" placeholder="Oraș" autocomplete="off">
+                            </div>
+                            <div class="correct-inline" id="correct-orase"></div>
                         </div>
+                        
+                        <button id="verify-btn" class="btn-primary btn-large btn-verify">Verifică</button>
                     </div>
                 </div>
             </div>

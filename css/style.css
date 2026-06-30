@@ -74,6 +74,9 @@ body {
     padding: 24px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 
 .menu-container {
@@ -475,6 +478,7 @@ body {
    ═══════════════════════════════════════════ */
 #knowledge-screen {
     height: 100vh;
+    height: 100dvh;
 }
 
 .knowledge-header {
@@ -499,52 +503,95 @@ body {
     align-items: center;
 }
 
+.btn-icon {
+    background: none;
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.btn-icon:hover {
+    background: var(--bg-card);
+}
+
 .btn-next {
+    background: var(--accent);
+    color: #111;
+    border: none;
     padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
     font-size: 0.85rem;
+    font-weight: 500;
+    font-family: var(--font);
+    transition: background 0.2s;
 }
 
-.knowledge-body {
+.btn-next:hover {
+    background: var(--accent-hover);
+}
+
+.btn-large {
+    padding: 14px 24px;
+    font-size: 1rem;
+}
+
+/* Knowledge content area */
+.knowledge-content {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
 }
 
-/* Filters */
+/* Filters card */
 .knowledge-filters {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px;
+    min-height: 100%;
 }
 
-.filter-panel {
+.filter-card {
     max-width: 400px;
     width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
 }
 
-.filter-panel h3 {
+.filter-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.filter-emoji {
+    font-size: 1.6rem;
+}
+
+.filter-card-header h3 {
     font-family: var(--font-heading);
     font-size: 1.2rem;
-    margin-bottom: 20px;
     color: #fff;
 }
 
 .filter-option {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
-    padding: 16px;
-    background: var(--bg-card);
+    padding: 14px 16px;
+    background: var(--bg-light);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 8px;
     margin-bottom: 10px;
     cursor: pointer;
     transition: border-color 0.2s;
-    flex-wrap: wrap;
 }
 
 .filter-option:hover {
@@ -552,164 +599,152 @@ body {
 }
 
 .filter-option input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    margin-top: 2px;
+    width: 20px;
+    height: 20px;
     accent-color: var(--accent);
     cursor: pointer;
+    flex-shrink: 0;
 }
 
-.filter-option span {
+.filter-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.filter-text span {
     font-weight: 600;
     font-size: 0.95rem;
     color: var(--text);
 }
 
-.filter-option small {
-    width: 100%;
-    padding-left: 30px;
+.filter-text small {
     color: var(--text-muted);
     font-size: 0.8rem;
-    margin-top: 2px;
 }
 
-.filter-panel .btn-primary {
+.filter-card .btn-primary {
     width: 100%;
     margin-top: 16px;
 }
 
-/* Two-panel layout */
-.knowledge-panels {
-    flex: 1;
+/* Country banner */
+.country-banner {
     display: flex;
-    overflow: hidden;
-    position: relative;
-}
-
-/* Knowledge Form — centered by default, slides left on verify */
-.knowledge-form {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 24px;
-    overflow-y: auto;
-    transition: all 0.4s ease;
-}
-
-.knowledge-panels.revealed .knowledge-form {
-    margin: 0;
-    width: 50%;
-    max-width: none;
-    border-right: 1px solid var(--border);
-}
-
-.knowledge-form h3 {
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
-    color: var(--accent);
-    margin-bottom: 4px;
-}
-
-.form-instructions {
-    color: var(--text-secondary);
+    align-items: center;
+    gap: 10px;
     margin-bottom: 20px;
-    font-size: 0.9rem;
+    padding: 14px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 }
 
-.form-group {
-    margin-bottom: 18px;
+.country-flag {
+    font-size: 1.4rem;
 }
 
-.form-group label {
-    display: block;
+.country-banner h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--accent);
+}
+
+/* Form card */
+.knowledge-form-card {
+    max-width: 500px;
+}
+
+.form-section {
+    margin-bottom: 20px;
+}
+
+.form-section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.section-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: var(--accent);
+    color: #111;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.form-section-header label {
     font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text);
     font-size: 0.93rem;
+    color: var(--text);
 }
 
-.form-group input {
-    display: block;
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-inputs input {
     width: 100%;
-    padding: 10px 14px;
+    padding: 11px 14px;
     background: var(--bg-light);
     border: 1px solid var(--border);
     border-radius: 6px;
     font-size: 0.95rem;
     color: var(--text);
     font-family: var(--font);
-    margin-bottom: 6px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.form-group input::placeholder {
+.form-inputs input::placeholder {
     color: var(--text-muted);
 }
 
-.form-group input:focus {
+.form-inputs input:focus {
     outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.1);
 }
 
-.form-group input.correct-input {
+.form-inputs input.correct-input {
     border-color: var(--success);
-    background: rgba(102, 187, 106, 0.05);
+    background: rgba(102, 187, 106, 0.08);
 }
 
-.form-group input.wrong-input {
+.form-inputs input.wrong-input {
     border-color: var(--error);
-    background: rgba(239, 83, 80, 0.05);
+    background: rgba(239, 83, 80, 0.08);
+}
+
+/* Inline correct answers - appears after verify */
+.correct-inline {
+    font-size: 0.82rem;
+    color: var(--success);
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    line-height: 1.5;
+}
+
+.correct-inline.visible {
+    padding: 8px 0 0 36px;
+    max-height: 100px;
+    opacity: 1;
 }
 
 .btn-verify {
     width: 100%;
-    padding: 14px;
-    font-size: 1rem;
-    margin-top: 10px;
-}
-
-/* Answers panel — hidden, appears from right */
-.knowledge-answers {
-    width: 0;
-    overflow: hidden;
-    opacity: 0;
-    padding: 0;
-    transition: all 0.4s ease;
-}
-
-.knowledge-panels.revealed .knowledge-answers {
-    width: 50%;
-    opacity: 1;
-    padding: 24px;
-    overflow-y: auto;
-}
-
-.knowledge-answers h3 {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    color: var(--success);
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-}
-
-.answer-section {
-    margin-bottom: 16px;
-}
-
-.answer-section h4 {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 3px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.answer-section p {
-    font-size: 0.93rem;
-    color: var(--text);
-    line-height: 1.6;
+    margin-top: 12px;
 }
 
 /* ═══════════════════════════════════════════
@@ -735,49 +770,6 @@ body {
     .question-panel { padding: 10px 14px; }
 
     .results-container { padding: 24px; }
-
-    /* Knowledge — stack vertically, allow scroll */
-    .knowledge-panels {
-        flex-direction: column;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .knowledge-form {
-        max-width: 100%;
-        width: 100% !important;
-        margin: 0 !important;
-        border-right: none !important;
-        flex-shrink: 0;
-    }
-
-    .knowledge-panels.revealed .knowledge-form {
-        width: 100% !important;
-        border-right: none !important;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .knowledge-answers {
-        width: 100% !important;
-    }
-
-    .knowledge-panels.revealed .knowledge-answers {
-        width: 100% !important;
-        opacity: 1;
-        padding: 24px;
-        overflow-y: visible;
-        flex-shrink: 0;
-    }
-
-    .knowledge-body {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .knowledge-filters {
-        align-items: flex-start;
-        padding: 20px;
-    }
 
     /* Map — ensure usable size */
     .map-container {

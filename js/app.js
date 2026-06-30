@@ -127,6 +127,10 @@
         if (!result) return;
 
         if (result.correct) {
+            // Remove any previous highlight
+            const highlighted = mapContainer.querySelectorAll('.highlight');
+            highlighted.forEach(el => el.classList.remove('highlight'));
+
             element.classList.add('correct');
             showFeedback(`✓ Corect! ${element.dataset.name}`, 'success');
 
@@ -146,7 +150,10 @@
 
             setTimeout(() => element.classList.remove('incorrect'), 600);
 
-            // Highlight correct answer with yellow — stays visible until answered
+            // Remove previous highlight, then highlight the correct answer
+            const oldHighlights = mapContainer.querySelectorAll('.highlight');
+            oldHighlights.forEach(el => el.classList.remove('highlight'));
+
             const correctEl = mapContainer.querySelector(`[data-id="${result.correctTarget}"]`);
             if (correctEl) {
                 correctEl.classList.add('highlight');
@@ -231,8 +238,7 @@
     function startKnowledgeQuiz() {
         showScreen(knowledgeScreen);
         document.getElementById('knowledge-filters').style.display = '';
-        document.getElementById('knowledge-panels').classList.remove('revealed');
-        document.getElementById('knowledge-form').style.display = 'none';
+        document.getElementById('knowledge-quiz').style.display = 'none';
         document.getElementById('knowledge-next-btn').style.display = 'none';
         document.getElementById('knowledge-settings-btn').style.display = 'none';
     }
@@ -244,7 +250,7 @@
             importante: document.getElementById('filter-importante').checked
         };
         document.getElementById('knowledge-filters').style.display = 'none';
-        document.getElementById('knowledge-form').style.display = '';
+        document.getElementById('knowledge-quiz').style.display = '';
         document.getElementById('knowledge-next-btn').style.display = '';
         document.getElementById('knowledge-settings-btn').style.display = '';
         loadNewCountry();
@@ -262,8 +268,11 @@
             input.className = '';
         });
 
-        // Reset: form goes back to center, answers hidden
-        document.getElementById('knowledge-panels').classList.remove('revealed');
+        // Hide inline correct answers
+        document.querySelectorAll('.correct-inline').forEach(el => {
+            el.textContent = '';
+            el.classList.remove('visible');
+        });
     }
 
     // Verify button
@@ -277,14 +286,18 @@
         checkInputs(['input-apa1', 'input-apa2'], data.ape);
         checkInputs(['input-oras1', 'input-oras2', 'input-oras3'], data.orase);
 
-        document.getElementById('correct-vecini').textContent = data.vecini.join(', ');
-        document.getElementById('correct-relief').textContent = data.relief.join(', ');
-        document.getElementById('correct-ape').textContent = data.ape.join(', ');
-        document.getElementById('correct-orase').textContent = data.orase.join(', ');
-
-        // Animate: form slides left, answers appear right
-        document.getElementById('knowledge-panels').classList.add('revealed');
+        // Show correct answers inline under each section
+        showInlineCorrect('correct-vecini', data.vecini);
+        showInlineCorrect('correct-relief', data.relief);
+        showInlineCorrect('correct-ape', data.ape);
+        showInlineCorrect('correct-orase', data.orase);
     });
+
+    function showInlineCorrect(elementId, answers) {
+        const el = document.getElementById(elementId);
+        el.textContent = '✓ ' + answers.join(', ');
+        el.classList.add('visible');
+    }
 
     function checkInputs(inputIds, correctAnswers) {
         inputIds.forEach(id => {
@@ -335,8 +348,7 @@
     // Settings button
     document.getElementById('knowledge-settings-btn').addEventListener('click', () => {
         document.getElementById('knowledge-filters').style.display = '';
-        document.getElementById('knowledge-form').style.display = 'none';
-        document.getElementById('knowledge-panels').classList.remove('revealed');
+        document.getElementById('knowledge-quiz').style.display = 'none';
         document.getElementById('knowledge-next-btn').style.display = 'none';
         document.getElementById('knowledge-settings-btn').style.display = 'none';
     });

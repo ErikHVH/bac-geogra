@@ -62,6 +62,7 @@ const QUIZ_DATA = {
             { target: "olt", answer: "Olt" },
             { target: "siret", answer: "Siret" },
             { target: "somes", answer: "Someș" },
+            { target: "somesul_mare", answer: "Someșul Mare" },
             { target: "somesul_mic", answer: "Someșul Mic" },
             { target: "ialomita", answer: "Ialomița" },
             { target: "arges", answer: "Argeș" },
@@ -69,26 +70,32 @@ const QUIZ_DATA = {
             { target: "buzau", answer: "Buzău" },
             { target: "dambovita", answer: "Dâmbovița" },
             { target: "bistrita", answer: "Bistrița" },
-            { target: "jijia", answer: "Jijia" },
+
             { target: "tarnava_mare", answer: "Târnava Mare" },
+            { target: "tarnava_mica", answer: "Târnava Mică" },
             { target: "timis", answer: "Timiș" },
             { target: "crisul_alb", answer: "Crișul Alb" },
+            { target: "crisul_repede", answer: "Crișul Repede" },
+            { target: "crisul_negru", answer: "Crișul Negru" },
             { target: "vedea", answer: "Vedea" },
             { target: "moldova_rau", answer: "Moldova" },
             { target: "barlad", answer: "Bârlad" },
-            { target: "tarnava_mica", answer: "Târnava Mică" },
             { target: "prahova", answer: "Prahova" },
-            { target: "neajlov", answer: "Neajlov" },
             { target: "oltet", answer: "Olteț" },
             { target: "suceava_rau", answer: "Suceava" },
             { target: "bega", answer: "Bega" },
             { target: "aries", answer: "Arieș" },
             { target: "trotus", answer: "Trotuș" },
-            { target: "putna", answer: "Putna" },
-            { target: "crisul_repede", answer: "Crișul Repede" },
-            { target: "crisul_negru", answer: "Crișul Negru" },
+
             { target: "cerna", answer: "Cerna" },
-            { target: "lotru", answer: "Lotru" }
+            { target: "barcau", answer: "Barcău" },
+            { target: "motru", answer: "Motru" },
+            { target: "teleorman", answer: "Teleorman" },
+            { target: "calmatui", answer: "Călmățui" },
+            { target: "cibin", answer: "Cibin" },
+            { target: "chilia", answer: "Chilia" },
+            { target: "sulina", answer: "Sulina" },
+            { target: "sf_gheorghe", answer: "Sf. Gheorghe" }
         ]
     }
 };

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Debug Rivers</title>
+<style>
+body { background: #1a1a2e; margin: 0; padding: 20px; }
+#map { width: 100%; max-width: 900px; margin: 0 auto; position: relative; }
+#map svg { width: 100%; }
+.river-label { 
+    font-size: 6px; 
+    fill: #ff0; 
+    font-weight: bold;
+    pointer-events: none;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script src="js/data/romania-rivers.js"></script>
+<script>
+async function init() {
+    const response = await fetch('assets/romania-real.svg');
+    const svgText = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(svgText, 'image/svg+xml');
+    const svg = doc.querySelector('svg');
+    
+    const w = svg.getAttribute('width');
+    const h = svg.getAttribute('height');
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg.style.width = '100%';
+    svg.removeAttribute('width');
+    svg.removeAttribute('height');
+    
+    // Grey out counties
+    svg.querySelectorAll('path[id^="RO-"]').forEach(p => {
+        p.setAttribute('fill', '#e8e4d8');
+        p.setAttribute('stroke', '#999');
+        p.setAttribute('stroke-width', '0.5');
+    });
+    
+    // Add rivers with labels
+    RIVERS_DATA.forEach(river => {
+        const path = doc.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', river.path);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', '#5dade2');
+        path.setAttribute('stroke-width', '1.5');
+        path.setAttribute('id', 'river-' + river.id);
+        svg.appendChild(path);
+        
+        // Add label at start of path
+        const match = river.path.match(/M([\d.]+),([\d.]+)/);
+        if (match) {
+            const text = doc.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', match[1]);
+            text.setAttribute('y', match[2]);
+            text.setAttribute('class', 'river-label');
+            text.textContent = river.name;
+            svg.appendChild(text);
+        }
+    });
+    
+    document.getElementById('map').innerHTML = svg.outerHTML;
+}
+init();
+</script>
+</body>
+</html>
