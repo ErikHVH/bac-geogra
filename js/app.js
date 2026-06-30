@@ -231,8 +231,8 @@
     function startKnowledgeQuiz() {
         showScreen(knowledgeScreen);
         document.getElementById('knowledge-filters').style.display = '';
+        document.getElementById('knowledge-panels').classList.remove('revealed');
         document.getElementById('knowledge-form').style.display = 'none';
-        document.getElementById('knowledge-answers').classList.remove('visible');
         document.getElementById('knowledge-next-btn').style.display = 'none';
         document.getElementById('knowledge-settings-btn').style.display = 'none';
     }
@@ -262,7 +262,8 @@
             input.className = '';
         });
 
-        document.getElementById('knowledge-answers').classList.remove('visible');
+        // Reset: form goes back to center, answers hidden
+        document.getElementById('knowledge-panels').classList.remove('revealed');
     }
 
     // Verify button
@@ -281,7 +282,8 @@
         document.getElementById('correct-ape').textContent = data.ape.join(', ');
         document.getElementById('correct-orase').textContent = data.orase.join(', ');
 
-        document.getElementById('knowledge-answers').classList.add('visible');
+        // Animate: form slides left, answers appear right
+        document.getElementById('knowledge-panels').classList.add('revealed');
     });
 
     function checkInputs(inputIds, correctAnswers) {
@@ -334,7 +336,7 @@
     document.getElementById('knowledge-settings-btn').addEventListener('click', () => {
         document.getElementById('knowledge-filters').style.display = '';
         document.getElementById('knowledge-form').style.display = 'none';
-        document.getElementById('knowledge-answers').classList.remove('visible');
+        document.getElementById('knowledge-panels').classList.remove('revealed');
         document.getElementById('knowledge-next-btn').style.display = 'none';
         document.getElementById('knowledge-settings-btn').style.display = 'none';
     });

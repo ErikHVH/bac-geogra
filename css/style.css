@@ -499,6 +499,7 @@ body {
 .knowledge-body {
     flex: 1;
     display: flex;
+    flex-direction: column;
     overflow: hidden;
     position: relative;
 }
@@ -569,12 +570,29 @@ body {
     margin-top: 16px;
 }
 
-/* Knowledge Form */
-.knowledge-form {
+/* Two-panel layout */
+.knowledge-panels {
     flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Knowledge Form — centered by default, slides left on verify */
+.knowledge-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
     padding: 24px;
     overflow-y: auto;
-    max-width: 550px;
+    transition: all 0.4s ease;
+}
+
+.knowledge-panels.revealed .knowledge-form {
+    margin: 0;
+    width: 50%;
+    max-width: none;
+    border-right: 1px solid var(--border);
 }
 
 .knowledge-form h3 {
@@ -643,22 +661,20 @@ body {
     margin-top: 10px;
 }
 
-/* Answers panel */
+/* Answers panel — hidden, appears from right */
 .knowledge-answers {
-    position: absolute;
-    right: 0; top: 0; bottom: 0;
-    width: 360px;
-    background: var(--bg-light);
-    border-left: 1px solid var(--border);
-    padding: 24px;
-    overflow-y: auto;
-    transform: translateX(100%);
-    transition: transform 0.35s ease;
-    box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+    transition: all 0.4s ease;
 }
 
-.knowledge-answers.visible {
-    transform: translateX(0);
+.knowledge-panels.revealed .knowledge-answers {
+    width: 50%;
+    opacity: 1;
+    padding: 24px;
+    overflow-y: auto;
 }
 
 .knowledge-answers h3 {
@@ -694,25 +710,47 @@ body {
 @media (max-width: 768px) {
     .menu-header h1 { font-size: 2.4rem; }
     .quiz-categories { grid-template-columns: 1fr 1fr; }
-    .quiz-header { padding: 10px 12px; }
+    .quiz-header { padding: 10px 12px; flex-wrap: wrap; }
+    .quiz-header .quiz-info { order: -1; width: 100%; text-align: center; margin-bottom: 4px; }
     #question-text { font-size: 1.05rem; }
     .results-container { padding: 24px; }
 
-    .knowledge-body { flex-direction: column; }
-    .knowledge-form { max-width: 100%; }
-    .knowledge-answers {
-        position: relative;
-        width: 100%;
-        transform: translateY(100%);
-        border-left: none;
-        border-top: 1px solid var(--border);
+    /* Knowledge panels stack vertically on mobile */
+    .knowledge-panels {
+        flex-direction: column;
     }
-    .knowledge-answers.visible { transform: translateY(0); }
+
+    .knowledge-form {
+        max-width: 100%;
+        width: 100% !important;
+        border-right: none !important;
+    }
+
+    .knowledge-panels.revealed .knowledge-form {
+        width: 100% !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .knowledge-panels.revealed .knowledge-answers {
+        width: 100% !important;
+    }
+
+    .knowledge-body {
+        overflow-y: auto;
+    }
+
+    /* Map container needs to be taller on mobile */
+    .map-container {
+        min-height: 300px;
+    }
 }
 
 @media (max-width: 480px) {
+    .menu-header h1 { font-size: 2rem; }
     .quiz-categories { grid-template-columns: 1fr; }
     .results-actions { flex-direction: column; }
+    .quiz-stats { gap: 10px; font-size: 0.8rem; }
 }
 
 /* ─── Scrollbar ────────────────────────────── */
